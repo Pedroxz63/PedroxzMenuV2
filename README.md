@@ -337,6 +337,41 @@ CarroTab:AddButton({
         
   	end    
 })
+CarroTab:AddButton({
+	Name = "God Mode Veiculo",
+	Callback = function()
+        godmode = true
+ 
+        game:GetService('RunService').Stepped:connect(function()
+            if godmode == true then
+                if game.Players.LocalPlayer.Character ~= nil then
+                    if game.Players.LocalPlayer.Character:FindFirstChild("Right Leg") then
+                        game.Players.LocalPlayer.Character:FindFirstChild("Right Leg"):Destroy()
+                    end
+                end
+            end
+            end)
+         
+         
+        game.Players.LocalPlayer.Chatted:Connect(function(msg)
+        local lower = string.lower(msg)
+         
+        if string.find(lower,";god") then
+            godmode = true       
+        game.Players.LocalPlayer.Character:BreakJoints()
+        end
+         
+        if string.find(lower,";ungod") then
+            godmode = false      
+        game.Players.LocalPlayer.Character:BreakJoints()
+        end
+        end)
+        --[[
+        Made by Link
+        --]]
+        
+  	end    
+})
 local Section = ArmaTab:AddSection({
 	Name = "Ativar/Desativar"
 })
@@ -659,10 +694,25 @@ while shared.a and hum.Sit do
 end
           end   
         })
+local Section = plrTab:AddSection({
+	Name = "Eb farm"
+})
+plrTab:AddButton({
+    Name = "Auto Farm @Kauezindo_Eb",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/arandomuser0/scriptroblox/main/autofarmeb.lua'))()
+      end   
+    })
     TrollTab:AddButton({
-        Name = "Hub Com Op Trolls (Funcionando em algums eb/rp)",
+        Name = "Hub Com Op Trolls - Funcionando em algums eb/rp",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Arthurkla/teste/main/ViethinScript2", true))()
+          end   
+        })
+    TrollTab:AddButton({
+        Name = "Hub Super Troll - Bypass",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/i4mitty/Peruanito.exe/main/Peruanito.exe.lua"))()
           end   
         })
     TrollTab:AddButton({
@@ -1659,7 +1709,7 @@ JogadorTab:AddButton({
   	end    
 })
 JogadorTab:AddButton({
-	Name = "Infinite Stamina",
+	Name = "Stamina Inf.",
 	Callback = function()
         local function SetInfiniteStamina(player)
             local humanoid = player.Character and player.Character:FindFirstChild("Humanoid")
@@ -1677,6 +1727,22 @@ JogadorTab:AddButton({
         end)
   	end    
 })
+JogadorTab:AddButton({
+	Name = "Anti Ragdoll",
+	Callback = function()
+        spawn(function()
+            while game:GetService("RunService").Heartbeat:Wait() do
+                local chr = game.Players.LocalPlayer.Character
+         
+                for _,v in pairs(chr:GetChildren()) do
+                    if v:IsA("BallSocketConstraint") or v:IsA("HingeConstraint") or v.Name == "Controls" or v.Name == "Local Ragdoll" or v.Name == "State Handler" or v.Name == "FirstPerson" or v.Name == "FakeAdmin" then
+                        v:Destroy()
+                    end
+                end
+            end
+        end)
+    end
+        })
         JogadorTab:AddButton({
             Name = "Auto JJs",
             Callback = function()
@@ -4773,7 +4839,7 @@ PlayersTab:AddButton({
   	end    
 })
 PlayersTab:AddButton({
-	Name = "Staffs Proximo",
+	Name = "Staffs Proximo - Esp",
 	Callback = function()
       	print("button pressed")
   	end    
@@ -4836,29 +4902,35 @@ Dinheiro.Value = 99999999
             loadstring(game:HttpGet('https://raw.githubusercontent.com/Pedroxz63/KakahMenuBypedroxz631/main/README.md'))()
           end     
     })
+    MenusTab:AddButton({
+        Name = "Pedroxz Hub Troll",
+        Callback = function()
+            loadstring(game:HttpGet"https://raw.githubusercontent.com/Pedroxz63/HubTrollPedroxz63/main/README.md")()
+          end     
+    })
     AdmTab:AddButton({
-        Name = "Virar ADM",
+        Name = "Virar ADM - Ter mesmo CMD que mesmo ADM",
         Callback = function()
             loadstring(game:HttpGetAsync("https://pastebin.com/raw/Caniwq2N"))()
           end       
     })
     AdmTab:AddButton({
-        Name = "logs ADM",
+        Name = "logs ADM - Tem Bypass Pode usar Tranquilo",
         Callback = function()
             loadstring(game:HttpGet("https://pastebin.com/raw/stggPUBM", true))()
           end       
         })
 local Section = BypassTab:AddSection({
-	Name = "Painel Anti detecter"
+	Name = "Painel Anti detecter - Nem faz tanto Milagre"
 })
     BypassTab:AddButton({
-        Name = "Stopar Anti cheater V1 - Risco Kick",
+        Name = "Bypass Stopper V1",
             Callback = function()
                 loadstring(game:HttpGet(('https://raw.githubusercontent.com/Pedroxz63/Ante-kick-V1/main/README.md'),true))()
               end                        
 })
     BypassTab:AddButton({
-        Name = "Stopar Anti cheater V2",
+        Name = "Bypass Stopper V2",
             Callback = function()
                 ait(0.5)local ba=Instance.new("ScreenGui")
 local ca=Instance.new("TextLabel")local da=Instance.new("Frame")
@@ -4921,7 +4993,7 @@ BypassTab:AddButton({
   	end    
 }) 
 BypassTab:AddButton({
-	Name = "Anti kick V9",
+	Name = "Bypass Stopper Anti kick V9",
 	Callback = function()
         wait(0.5)local ba=Instance.new("ScreenGui")
         local ca=Instance.new("TextLabel")local da=Instance.new("Frame")
