@@ -1840,7 +1840,7 @@ local Section = JogadorTab:AddSection({
 	Name = "Recomendado"
 })
 JogadorTab:AddToggle({
-	Name = "Anti ADM",
+	Name = "Anti Staff",
 	Default = false,
 	Callback = function(Value)
 		print(Value)
