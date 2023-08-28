@@ -309,6 +309,34 @@ ArmaTab:AddButton({
         procurarTools()
       end    
 }) 
+ArmaTab:AddButton({
+	Name = "Kill All ACS - Weapon",
+	Callback = function()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Kill all Hack"; 
+            Text = "By Pedroxz";
+            Icon = "rbxassetid://57254792"; 
+            
+            Duration = 5; 
+            })
+            --- script 
+            _G.Stop = false
+             
+            repeat game:GetService("RunService").RenderStepped:Wait()
+            for _,v in next, game:GetService("Players"):GetPlayers() do
+            if v ~= game:GetService("Players").LocalPlayer then
+            local char = v.Character or workspace:FindFirstChild(v.Name)
+            if char then
+            pcall(function()
+            char.Head.Anchored = true
+            char.Head.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,2,-2.5)
+            end)
+            end
+            end
+            end
+            until _G.Stop
+  	end    
+})
 local Section = CarroTab:AddSection({
 	Name = "Veiculos"
 })
@@ -335,6 +363,82 @@ CarroTab:AddButton({
         game:GetService("ReplicatedStorage").ConcessionariaRS.Remotes.Check:InvokeServer(unpack(args))
         wait(00000000.5)
         
+  	end    
+})
+CarroTab:AddButton({
+	Name = "Puxar Carro - Eb do Tevez",
+	Callback = function()
+        for _, v: string in ipairs({'Tesla', 'Impala', 'Kombi'}) do
+            game.ReplicatedStorage:WaitForChild("Remotes").Garagem:FireServer(v, "CV")
+        end
+  	end    
+})
+CarroTab:AddButton({
+	Name = "Selection Carro - Eb Do Tevez",
+	Callback = function()
+        local Plr = game.Players.LocalPlayer
+        type ret = ModuleScript
+        local function GetIconModule():ret
+            for _, instance in game.ReplicatedStorage:GetDescendants() do
+                if instance:IsA("ModuleScript") and instance.Name == "Icon" then
+                    return instance, true
+                end
+            end
+            return "Icone não achado.", false
+        end
+        
+        local Icon, Sucess = GetIconModule()
+        
+        
+        if not Sucess then return end
+        
+        local Module = require(Icon)
+        
+        local NewIcon = Module.new()
+            :setLabel("Spawnar carro")
+            :setImage(14268537581)
+            :notify()
+            :setTip("Abrir menu de spawnar carro")
+            :setDropdown({
+                
+                Module.new()
+                :setLabel("Spawnar Kombi")
+                :setProperty("deselectWhenOtherIconSelected", true)
+                :bindEvent("selected",function()
+                game:GetService("StarterGui"):SetCore("SendNotification", {
+                    Title = "Sistema";
+                    Text = "Sua kombi foi spawnada na garagem."
+                })
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Garagem"):FireServer("Kombi", "CV")
+                end);
+        
+                Module.new()
+                :setLabel("Spawnar Impala")
+                :setProperty("deselectWhenOtherIconSelected", true)
+                :bindEvent("selected",function()
+                    game:GetService("StarterGui"):SetCore("SendNotification", {
+                        Title = "Sistema";
+                        Text = "Sua Impala foi spawnada na garagem."
+                    })
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Garagem"):FireServer("Impala", "CV")
+                end);
+        
+                Module.new()
+                :setLabel("Spawnar Tesla")
+                :setProperty("deselectWhenOtherIconSelected", true)
+                :bindEvent("selected",function()
+                    game:GetService("StarterGui"):SetCore("SendNotification", {
+                        Title = "Sistema";
+                        Text = "Sua Tesla foi spawnada na garagem."
+                    })
+                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Garagem"):FireServer("Tesla", "CV")
+                end);
+                
+                
+                Module.new()
+                :setLabel(string.format("Feito por Pedroxz63", "Hypee"))
+                :lock()
+            })        
   	end    
 })
 CarroTab:AddButton({
@@ -370,6 +474,170 @@ CarroTab:AddButton({
         Made by Link
         --]]
         
+  	end    
+})
+CarroTab:AddButton({
+	Name = "Veiculo Fly",
+	Callback = function()
+        local ScreenGui = Instance.new("ScreenGui")
+        local main = Instance.new("Frame")
+        local flycar = Instance.new("TextButton")
+        local Close = Instance.new("TextButton")
+        local openmain = Instance.new("Frame")
+        local open = Instance.new("TextButton")
+         
+        ScreenGui.Parent = game.CoreGui
+         
+        main.Name = "Flying Car"
+        main.Parent = ScreenGui
+        main.BackgroundColor3 = Color3.fromRGB(112, 255, 133)
+        main.Position = UDim2.new(0.0598930493, 0, 0.716088295, 0)
+        main.Size = UDim2.new(0, 120, 0, 108)
+        main.Visible = false
+        main.Active = true
+        main.Draggable = true
+         
+        flycar.Name = "CarV1"
+        flycar.Parent = main
+        flycar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        flycar.Position = UDim2.new(0, 0, 0.268518507, 0)
+        flycar.Size = UDim2.new(0, 120, 0, 50)
+        flycar.Style = Enum.ButtonStyle.RobloxButton
+        flycar.Font = Enum.Font.Gotham
+        flycar.Text = "Car Fly Pedroxz"
+        flycar.TextColor3 = Color3.fromRGB(85, 170, 255)
+        flycar.TextSize = 14.000
+        flycar.MouseButton1Click:connect(function()
+            local Tool = Instance.new("HopperBin")
+        Tool.Parent = game.Players.LocalPlayer.Backpack
+        Tool.Name = "กดปุ่ม R บิน"
+        local hint = Instance.new("Hint",game.Players.LocalPlayer.PlayerGui)
+           hint.Text = "Car Fly Pedroxz"
+           hint.Name = game.JobId
+        repeat wait()
+            until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+        local mouse = game.Players.LocalPlayer:GetMouse()
+        repeat wait() until mouse
+        local plr = game.Players.LocalPlayer
+        local torso = plr.Character.Torso
+        local flying = true
+        local deb = true
+        local ctrl = {f = 0, b = 0, l = 0, r = 0}
+        local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+        local maxspeed = 200
+        local speed = 0
+         
+        function Fly()
+        local bg = Instance.new("BodyGyro", torso)
+        bg.P = 9e4
+        bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+        bg.cframe = torso.CFrame
+        local bv = Instance.new("BodyVelocity", torso)
+        bv.velocity = Vector3.new(0,0.1,0)
+        bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+        repeat wait()
+        plr.Character.Humanoid.PlatformStand = false
+        if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+        speed = speed+125.0+(speed/maxspeed)
+        if speed > maxspeed then
+        speed = maxspeed
+        end
+        elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+        speed = speed-250
+        if speed < 0 then
+        speed = 0
+        end
+        end
+        if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+        lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+        elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+        bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+        else
+        bv.velocity = Vector3.new(0,0.1,0)
+        end
+        bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+        until not flying
+        ctrl = {f = 0, b = 0, l = 0, r = 0}
+        lastctrl = {f = 0, b = 0, l = 0, r = 0}
+        speed = 0
+        bg:Destroy()
+        bv:Destroy()
+        plr.Character.Humanoid.PlatformStand = false
+        end
+        mouse.KeyDown:connect(function(key)
+        if key:lower() == "r" then
+        if flying then flying = false
+        else
+        flying = true
+        Fly()
+        end
+        elseif key:lower() == "w" then
+        ctrl.f = 1
+        elseif key:lower() == "s" then
+        ctrl.b = -1
+        elseif key:lower() == "a" then
+        ctrl.l = -1
+        elseif key:lower() == "d" then
+        ctrl.r = 1
+        end
+        end)
+        mouse.KeyUp:connect(function(key)
+        if key:lower() == "w" then
+        ctrl.f = 0
+        elseif key:lower() == "s" then
+        ctrl.b = 0
+        elseif key:lower() == "a" then
+        ctrl.l = 0
+        elseif key:lower() == "d" then
+        ctrl.r = 0
+        end
+        wait(5)
+        hint:Destroy()
+        end)
+        Fly()
+        end)    
+         
+         
+        Close.Name = "Close"
+        Close.Parent = main
+        Close.BackgroundColor3 = Color3.fromRGB(255, 32, 140)
+        Close.Position = UDim2.new(0.675000012, 0, 0, 0)
+        Close.Size = UDim2.new(0, 39, 0, 29)
+        Close.Text = "X"
+        Close.TextColor3 = Color3.fromRGB(0, 0, 0)
+        Close.TextSize = 14.000
+        Close.MouseButton1Down:connect(function()
+        main.Visible = false
+        openmain.Visible = true
+        end)
+         
+        openmain.Name = "openmain"
+        openmain.Parent = ScreenGui
+        openmain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        openmain.Position = UDim2.new(0.00641711242, 0, 0.54574132, 0)
+        openmain.Size = UDim2.new(0, 100, 0, 26)
+        openmain.Active = true
+        openmain.Draggable = true
+         
+        open.Name = "open"
+        open.Parent = openmain
+        open.BackgroundColor3 = Color3.fromRGB(255, 177, 42)
+        open.Size = UDim2.new(0, 100, 0, 26)
+        open.Text = "Car Fly Pedroxz"
+        open.TextColor3 = Color3.fromRGB(0, 0, 0)
+        open.TextSize = 14.000
+        open.MouseButton1Down:connect(function()
+        openmain.Visible = false
+        main.Visible = true
+        end)
+         
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Car Fly Pedroxz";
+        Text = [[Car Fly Pedroxz
+            Car Fly Pedroxz :D 
+            555555555]];
+        })
   	end    
 })
 local Section = ArmaTab:AddSection({
@@ -4815,11 +5083,10 @@ local Section = PlayersTab:AddSection({
 	Name = "Cheat"
 })
     PlayersTab:AddButton({
-        Name = "Esconder Nome",
+        Name = "Bugar Nick - Ninguem ver seu nick(eb do tevez)",
         Callback = function()
-            wait()
- 
-game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+            local Dipostivo = "Discreto"
+game:GetService("ReplicatedStorage").Remotes.Dispositivo:FireServer("Discreto") game.Players.LocalPlayer.Character:BreakJoints()
           end    
 })
 PlayersTab:AddButton({
@@ -4907,6 +5174,487 @@ Dinheiro.Value = 99999999
         Callback = function()
             loadstring(game:HttpGet"https://raw.githubusercontent.com/Pedroxz63/HubTrollPedroxz63/main/README.md")()
           end     
+    })
+    MenusTab:AddButton({
+        Name = "Full troll Hub - RP do @weeyssom (se brincar funciona em outros)",
+        Callback = function()
+            --Instances
+local plr = game.Players.LocalPlayer
+local Troll = Instance.new("ScreenGui")
+local UiCorner1 = Instance.new("UICorner")
+local UiCorner2 = Instance.new("UICorner")
+local UiCorner3 = Instance.new("UICorner")
+local UiCorner4 = Instance.new("UICorner")
+local UiCorner6 = Instance.new("UICorner")
+local UiCorner8 = Instance.new("UICorner")
+local UiCorner7 = Instance.new("UICorner")
+local UiCorner10 = Instance.new("UICorner")
+local UiCorner2222 = Instance.new("UICorner")
+local UiCorner15 = Instance.new("UICorner")
+local UiCorner5 = Instance.new("UICorner")
+local UiGradient = Instance.new("UIGradient")
+local UiGradient2 = Instance.new("UIGradient")
+local UiGradient15 = Instance.new("UIGradient")
+local TextBox = Instance.new("TextBox")
+local TextBox2 = Instance.new("TextBox")
+local frame = Instance.new("Frame")
+local frame2 = Instance.new("Frame")
+local UiCorner9 = Instance.new("UICorner")
+local UiCorner14 = Instance.new("UICorner")
+local UiCorner11 = Instance.new("UICorner")
+local UiCorner16 = Instance.new("UICorner")
+local UiCorner13 = Instance.new("UICorner")
+local UiCorner12 = Instance.new("UICorner")
+local UiCorner15 = Instance.new("UICorner")
+local UiCorner17 = Instance.new("UICorner")
+local UiCorner18 = Instance.new("UICorner")
+local button1 = Instance.new("TextButton")
+local Close = Instance.new("TextButton")
+local Close2 = Instance.new("TextButton")
+local TextButton = Instance.new("TextButton")
+local TextButton2 = Instance.new("TextButton")
+local button2 = Instance.new("TextButton")
+local button10 = Instance.new("TextButton")
+local button8 = Instance.new("TextButton")
+local button3 = Instance.new("TextButton")
+local button4 = Instance.new("TextButton")
+local button5 = Instance.new("TextButton")
+local button6 = Instance.new("TextButton")
+local button7 = Instance.new("TextButton")
+local button9 = Instance.new("TextButton")
+local button11 = Instance.new("TextButton")
+local Titulo = Instance.new("TextLabel")
+local Titulo2 = Instance.new("TextLabel")
+
+-- Parte do ScreenGui
+Troll.Parent = plr.PlayerGui
+Troll.Name = "Trollador"
+Troll.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+Troll.ResetOnSpawn = false
+
+--Frame
+
+frame.Parent = Troll
+frame.Name = "Frame1"
+UiGradient.Parent = frame
+UiGradient.Color = ColorSequence.new(Color3.new(1, 1, 1), Color3.new(0.239216, 0.239216, 0.239216))
+frame.Active = true
+UiCorner1.Parent = frame
+frame.BackgroundColor3 = Color3.new(0.0980392, 0.0980392, 0.0980392)
+frame.Draggable = true
+frame.Position = UDim2.new(0.5, -150, 0.5, -67)
+frame.Size = UDim2.new(0, 300,0, 300)
+
+-- Titulo
+
+Titulo.Parent = frame
+Titulo.Position = UDim2.new(0.164, 0,0.029, 0)
+Titulo.BackgroundTransparency = 1
+Titulo.Size = UDim2.new(0, 200,0, 50)
+Titulo.Text = "Menu"
+Titulo.TextScaled = true
+Titulo.Font = Enum.Font.FredokaOne
+Titulo.TextColor3 = Color3.new(1, 1, 1)
+
+-- Titulo2
+
+Titulo2.Parent = frame2
+Titulo2.Position = UDim2.new(0.164, 0,0.029, 0)
+Titulo2.BackgroundTransparency = 1
+Titulo2.Size = UDim2.new(0, 200,0, 50)
+Titulo2.Text = "Menu"
+Titulo2.TextScaled = true
+Titulo2.Font = Enum.Font.FredokaOne
+Titulo2.TextColor3 = Color3.new(1, 1, 1)
+
+-- Importante 
+
+local Importante = Instance.new("TextLabel")
+Importante.Parent = frame
+Importante.Position = UDim2.new(0.001, 0,0.993, 3)
+Importante.BackgroundTransparency = 1
+Importante.Size = UDim2.new(0, 300,0, 30)
+Importante.Text = "Troll Pedroxz"
+Importante.TextScaled = true
+Importante.Font = Enum.Font.FredokaOne
+Importante.TextColor3 = Color3.new(0.215686, 1, 0)
+
+-- Importante 2
+
+local Importante2 = Instance.new("TextLabel")
+Importante2.Parent = frame2
+Importante2.Position = UDim2.new(0.001, 0,0.993, 3)
+Importante2.BackgroundTransparency = 1
+Importante2.Size = UDim2.new(0, 300,0, 30)
+Importante2.Text = "Troll Pedroxz"
+Importante2.TextScaled = true
+Importante2.Font = Enum.Font.FredokaOne
+Importante2.TextColor3 = Color3.new(0.215686, 1, 0)
+
+
+-- Close
+Close.Parent = frame
+Close.Position = UDim2.new(1.463, -150,0.01, -20)
+	Close.Size = UDim2.new(0, 30,0, 30)
+UiCorner8.Parent = Close
+	Close.BorderSizePixel = 0
+	Close.BackgroundColor3 = Color3.new(0.196078, 0.196078, 0.196078)
+	Close.TextColor3 = Color3.new(1, 0, 0)
+	Close.Text = "X"
+	Close.Font = Enum.Font.FredokaOne
+Close.TextScaled = true
+
+
+Close.MouseButton1Click:Connect(function()
+	plr.PlayerGui:FindFirstChild("Trollador"):Destroy()
+end)
+
+-- Botao1
+button1.Parent = frame
+button1.Position = UDim2.new(0.547, -150,0.497, -80)
+button1.Size = UDim2.new(0, 100,0, 50)
+UiCorner2.Parent = button1
+button1.BorderSizePixel = 0
+button1.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button1.TextColor3 = Color3.new(1, 1, 1)
+button1.Text = "Matar Jogadores"
+button1.Font = Enum.Font.FredokaOne
+button1.TextScaled = true
+
+-- Botao2
+
+button2.Parent = frame
+button2.Position = UDim2.new(1.12, -150,0.497, -80)
+button2.Size = UDim2.new(0, 100,0, 50)
+UiCorner3.Parent = button2
+button2.BorderSizePixel = 0
+button2.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button2.TextColor3 = Color3.new(1, 1, 1)
+button2.Text = "Deixar geral peladinho"
+button2.Font = Enum.Font.FredokaOne
+button2.TextScaled = true
+
+-- Botao3
+
+button3.Parent = frame
+button3.Position = UDim2.new(1.12, -150,0.497, -5)
+button3.Size = UDim2.new(0, 100,0, 50)
+UiCorner4.Parent = button3
+button3.BorderSizePixel = 0
+button3.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button3.TextColor3 = Color3.new(1, 1, 1)
+button3.Text = "Geral Cotoco"
+button3.Font = Enum.Font.FredokaOne
+button3.TextScaled = true
+
+-- Botao4
+
+button4.Parent = frame
+button4.Position = UDim2.new(0.547, -150,0.497, -5)
+button4.Size = UDim2.new(0, 100,0, 50)
+UiCorner5.Parent = button4
+button4.BorderSizePixel = 0
+button4.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button4.TextColor3 = Color3.new(1, 0, 0)
+button4.Text = "DESTRUIR O JOGO"
+button4.Font = Enum.Font.FredokaOne
+button4.TextScaled = true
+
+-- Proximo
+
+button5.Parent = frame
+button5.Name = "Proximo"
+button5.Position = UDim2.new(1.59, -150,0.497, -20)
+button5.Size = UDim2.new(0, 50,0, 50)
+UiCorner10.Parent = button5
+button5.BorderSizePixel = 0
+button5.BackgroundColor3 = Color3.new(0.121569, 0.121569, 0.121569)
+button5.TextColor3 = Color3.new(1, 0.294118, 0.964706)
+button5.Text = ">"
+button5.Font = Enum.Font.FredokaOne
+button5.TextScaled = true
+
+
+
+-- TextBox
+
+TextBox.Parent = frame
+UiCorner6.Parent = TextBox
+TextBox.Position = UDim2.new(0.047, 0,0.747, 0)
+TextBox.Size = UDim2.new(0, 200,0, 50)
+TextBox.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+TextBox.TextColor3 = Color3.new(0.117647, 0.988235, 1)
+TextBox.PlaceholderColor3 = Color3.new(1, 1, 1)
+TextBox.Font = Enum.Font.FredokaOne
+TextBox.Text = ""
+TextBox.TextScaled = true
+TextBox.PlaceholderText = "Mata Player"
+
+
+-- TextButton
+
+	TextButton.Parent = frame
+	TextButton.Position = UDim2.new(1.297, -150,0.81, -20)
+	TextButton.Size = UDim2.new(0, 50,0, 50)
+	UiCorner7.Parent = TextButton
+	TextButton.BorderSizePixel = 0
+	TextButton.BackgroundColor3 = Color3.new(0.184314, 0.184314, 0.184314)
+	TextButton.TextColor3 = Color3.new(0.207843, 1, 0.882353)
+	TextButton.Text = ">"
+	TextButton.Font = Enum.Font.FredokaOne
+	TextButton.TextScaled = true
+
+-----------------------------------------------------------------------------------------------------------------
+
+-- Frame2
+
+frame2.Parent = Troll
+frame2.Name = "Frame2"
+frame2.Visible = false
+UiGradient2.Parent = frame2
+UiGradient2.Color = ColorSequence.new(Color3.new(1, 1, 1), Color3.new(0.239216, 0.239216, 0.239216))
+frame2.Active = true
+UiCorner12.Parent = frame2
+frame2.BackgroundColor3 = Color3.new(0.0980392, 0.0980392, 0.0980392)
+frame2.Draggable = true
+frame2.Position = UDim2.new(0.5, -150, 0.5, -67)
+frame2.Size = UDim2.new(0, 300,0, 300)
+
+
+-- Botao6
+
+button6.Parent = frame2
+button6.Position = UDim2.new(0.547, -150,0.497, -80)
+button6.Size = UDim2.new(0, 100,0, 50)
+UiCorner11.Parent = button6
+button6.BorderSizePixel = 0
+button6.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button6.TextColor3 = Color3.new(1, 1, 1)
+button6.Text = "ANTI-ADM"
+button6.Font = Enum.Font.FredokaOne
+button6.TextScaled = true
+
+
+-- Voltar
+
+button7.Parent = frame2
+button7.Name = "Voltar"
+button7.Position = UDim2.new(0.243, -150,0.48, -20)
+button7.Size = UDim2.new(0, 50,0, 50)
+UiCorner13.Parent = button7
+button7.BorderSizePixel = 0
+button7.BackgroundColor3 = Color3.new(0.121569, 0.121569, 0.121569)
+button7.TextColor3 = Color3.new(1, 0.294118, 0.964706)
+button7.Text = "<"
+button7.Font = Enum.Font.FredokaOne
+button7.TextScaled = true
+
+-- Close2
+Close2.Parent = frame2
+Close2.Position = UDim2.new(1.463, -150,0.01, -20)
+Close2.Size = UDim2.new(0, 30,0, 30)
+UiCorner2222.Parent = Close2
+Close2.BorderSizePixel = 0
+Close2.BackgroundColor3 = Color3.new(0.196078, 0.196078, 0.196078)
+Close2.TextColor3 = Color3.new(1, 0, 0)
+Close2.Text = "X"
+Close2.Font = Enum.Font.FredokaOne
+Close2.TextScaled = true
+
+Close2.MouseButton1Click:Connect(function()
+	plr.PlayerGui:FindFirstChild("Trollador"):Destroy()
+end)
+
+-- Botao8
+button8.Parent = frame2
+button8.Position = UDim2.new(1.12, -150,0.497, -80)
+button8.Size = UDim2.new(0, 100,0, 50)
+UiCorner14.Parent = button8
+button8.BorderSizePixel = 0
+button8.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button8.TextColor3 = Color3.new(1, 1, 1)
+button8.Text = "Deletar o Workspace"
+button8.Font = Enum.Font.FredokaOne
+button8.TextScaled = true
+
+-- Botao9
+
+button9.Parent = frame2
+button9.Position = UDim2.new(0.547, -150,0.497, -5)
+button9.Size = UDim2.new(0, 100,0, 50)
+UiCorner15.Parent = button9
+button9.BorderSizePixel = 0
+button9.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button9.TextColor3 = Color3.new(1, 1, 1)
+button9.Text = "Clique e Destrua"
+button9.Font = Enum.Font.FredokaOne
+button9.TextScaled = true
+
+--
+
+button10.Parent = frame2
+button10.Position = UDim2.new(1.12, -150,0.497, -5)
+button10.Size = UDim2.new(0, 100,0, 50)
+UiCorner16.Parent = button10
+button10.BorderSizePixel = 0
+button10.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+button10.TextColor3 = Color3.new(1, 1, 1)
+button10.Text = "Deletar Carros"
+button10.Font = Enum.Font.FredokaOne
+button10.TextScaled = true
+
+--
+
+-- TextBox2
+
+TextBox2.Parent = frame2
+UiCorner18.Parent = TextBox2
+TextBox2.Position = UDim2.new(0.047, 0,0.747, 0)
+TextBox2.Size = UDim2.new(0, 200,0, 50)
+TextBox2.BackgroundColor3 = Color3.new(0.219608, 0.219608, 0.219608)
+TextBox2.TextColor3 = Color3.new(0.117647, 0.988235, 1)
+TextBox2.PlaceholderColor3 = Color3.new(1, 1, 1)
+TextBox2.Font = Enum.Font.FredokaOne
+TextBox2.Text = ""
+TextBox2.TextScaled = true
+TextBox2.PlaceholderText = "Kickar Jogador"
+
+
+-- TextButton2
+
+TextButton2.Parent = frame2
+TextButton2.Position = UDim2.new(1.297, -150,0.81, -20)
+TextButton2.Size = UDim2.new(0, 50,0, 50)
+UiCorner17.Parent = TextButton2
+TextButton2.BorderSizePixel = 0
+TextButton2.BackgroundColor3 = Color3.new(0.184314, 0.184314, 0.184314)
+TextButton2.TextColor3 = Color3.new(0.207843, 1, 0.882353)
+TextButton2.Text = ">"
+TextButton2.Font = Enum.Font.FredokaOne
+TextButton2.TextScaled = true
+
+
+
+------------------------------------------------------------------------------------------------------------------
+
+button5.MouseButton1Click:Connect(function()
+	plr.PlayerGui.Trollador.Frame1.Visible = false
+	plr.PlayerGui.Trollador.Frame2.Visible = true
+	frame2.Position = frame.Position
+
+end)
+
+button7.MouseButton1Click:Connect(function()
+	plr.PlayerGui.Trollador.Frame2.Visible = false
+	plr.PlayerGui.Trollador.Frame1.Visible = true
+	frame.Position = frame2.Position
+end)
+
+
+button1.MouseButton1Click:Connect(function()
+	
+	for i,v in pairs(game.Players:GetChildren()) do
+		print(v)
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Head"))
+		end
+end)
+
+button2.MouseButton1Click:Connect(function()
+	
+	for i,v in pairs(game.Players:GetChildren()) do
+		print(v)
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Shirt"))
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Pants"))
+	end
+end)
+
+button4.MouseButton1Click:Connect(function()
+
+	for i,v in pairs(game.Players:GetChildren()) do
+		print(v)
+		game.ReplicatedStorage.DeleteCar:FireServer(v)
+		
+	end
+end)
+
+
+
+button3.MouseButton1Click:Connect(function()
+
+	for i,v in pairs(game.Players:GetChildren()) do
+		print(v)
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Right Leg"))
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Right Arm"))
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Left Arm"))
+		game.ReplicatedStorage.DeleteCar:FireServer(v.Character:FindFirstChild("Left Leg"))
+	end
+end)
+
+TextButton.MouseButton1Click:Connect(function()
+	
+	game.ReplicatedStorage.DeleteCar:FireServer(game.Players[TextBox.Text].Character:FindFirstChild("Head"))
+	
+end)
+
+button6.MouseButton1Click:Connect(function()
+	
+	for _,plr in pairs(game.Players:GetChildren()) do
+		
+		if plr ~= game.Players.LocalPlayer then
+		if plr.PlayerGui:FindFirstChild("Chat") then
+			game.ReplicatedStorage.DeleteCar:FireServer(plr.PlayerGui)
+			end
+		end
+		
+		
+	end
+	
+end)
+
+
+button8.MouseButton1Click:Connect(function()
+	for i,v in pairs(game.Workspace:GetChildren()) do
+		game.ReplicatedStorage.DeleteCar:FireServer(v)
+	end
+end)
+
+local OnClick = false
+local mouse = plr:GetMouse()
+
+button9.MouseButton1Click:Connect(function()
+	if not OnClick then
+		OnClick = true
+		print("Ativado")
+	else
+		OnClick = false
+		print("Desativado")
+	end
+end)
+
+mouse.Button1Down:Connect(function()
+if OnClick then
+		local Target = mouse.Target
+	if Target.Parent:IsA("Model") then
+			game.ReplicatedStorage.DeleteCar:FireServer(Target.Parent)
+	else
+			game.ReplicatedStorage.DeleteCar:FireServer(Target)
+		end
+	end
+	
+end)
+
+button10.MouseButton1Click:Connect(function()
+	for i,v in pairs(game.Workspace:GetChildren()) do
+		if v:FindFirstChild("DriveSeat") then
+			game.ReplicatedStorage.DeleteCar:FireServer(v)
+		end
+	end
+end)
+
+TextButton2.MouseButton1Click:Connect(function()
+	game.ReplicatedStorage.DeleteCar:FireServer(game.Players:FindFirstChild(TextBox2.Text))
+end)
+          end    
     })
     AdmTab:AddButton({
         Name = "Virar ADM - Ter mesmo CMD que mesmo ADM",
